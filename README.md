@@ -53,6 +53,11 @@ Things you may want to cover:
 | image            | string     | null: false       |
 | name             | string     | null: false       |
 | explanation      | string     | null: false       |
+| genre            | integer    | null: false       |
+| status           | integer    | null: false       |
+| delivery_fee     | integer    | null: false       |
+| prefecture       | integer    | null: false       |
+| delivery_days    | integer    | null: false       |
 | price            | integer    | null: false       |
 | user_id          | references | foreign_key: true |
 
@@ -92,7 +97,8 @@ Things you may want to cover:
 
 | Column        | Type       | Options           |
 | ------------- | ---------- | ----------------- |
-| postal_code   | integer    | null: false       |
+| postal_code   | string     | null: false       |
+| prefecture    | integer    | null: false       |
 | address1      | string     | null: false       |
 | address2      | string     | null: false       |
 | building_name | string     |                   |
