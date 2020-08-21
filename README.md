@@ -29,35 +29,32 @@ Things you may want to cover:
 
 ## users テーブル
 
-| Column        | Type    | Options     |
-| --------      | ------  | ----------- |
-| email         | string  | null: false |
-| password      | string  | null: false |
-| nickname      | string  | null: false |
-| name          | string  | null: false |
-| name_kana     | string  | null: false |
-| date_of_birth | integer | null: false |
+| Column       --- | Type     | Options     |
+| ---------------- | -------- | ----------- |
+| email            | string   | null: false |
+| password         | string   | null: false |
+| nickname         | string   | null: false |
+| family_name      | string   | null: false |
+| first_name       | string   | null: false |
+| family_name_kana | string   | null: false |
+| first_name_kana  | string   | null: false |
+| date_of_birth    | date     | null: false |
 
 ### Association
 - has_many :items
 - has_many :comments
-- has_one :order
+- has_many :orders
 
 
 ## items テーブル
 
-| Column           | Type    | Options     |
-| ---------------- | ------- | ----------- |
-| image            | string  | null: false |
-| item_name        | string  | null: false |
-| item_explanation | string  | null: false |
-| genre            | string  | null: false |
-| status           | string  | null: false |
-| delivery_fee     | string  | null: false |
-| prefecture       | string  | null: false |
-| delivery_days    | string  | null: false |
-| price            | integer | null: false |
-| user_id          | integer | null: false |
+| Column           | Type       | Options           |
+| ---------------- | ---------- | ----------------- |
+| image            | string     | null: false       |
+| name             | string     | null: false       |
+| explanation      | string     | null: false       |
+| price            | integer    | null: false       |
+| user_id          | references | foreign_key: true |
 
 ### Association
 - belongs_to :user
@@ -67,11 +64,11 @@ Things you may want to cover:
 
 ## comments テーブル
 
-| Column          | Type     | Options     |
-| --------------- | -------- | ----------- |
-| comment         | text     | null: false |
-| item_id         | integer  | null: false |
-| user_id         | integer  | null: false |
+| Column          | Type       | Options           |
+| --------------- | ---------- | ----------------- |
+| comment         | text       | null: false       |
+| item_id         | references | foreign_key: true |
+| user_id         | references | foreign_key: true |
 
 ### Association
 - belongs_to :user
@@ -80,15 +77,27 @@ Things you may want to cover:
 
 ## orders テーブル
 
-| Column           | Type    | Options     |
-| ---------------- | ------- | ----------- |
-| buy_item         | string  | null: false |
-| buyer            | string  | null: false |
-| billing          | string  | null: false |
-| shipping_address | string  | null: false |
-| user_id          | string  | null: false |
-| item_id          | integer | null: false |
+| Column           | Type       | Options           |
+| ---------------- | ---------- | ----------------- |
+| user_id          | references | foreign_key: true |
+| item_id          | references | foreign_key: true |
 
 ### Association
 - belongs_to :user
 - belongs_to :item
+- has_one :delivery_address
+
+
+## delivery_address テーブル
+
+| Column        | Type       | Options           |
+| ------------- | ---------- | ----------------- |
+| postal_code   | integer    | null: false       |
+| address1      | string     | null: false       |
+| address2      | string     | null: false       |
+| building_name | string     |                   |
+| phone_number  | integer    | null: false       |
+| order_id      | references | foreign_key: true |
+
+### Association
+- belongs_to :order
