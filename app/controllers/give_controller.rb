@@ -1,0 +1,2 @@
+class GiveController < ApplicationController
+end
