@@ -1,2 +1,0 @@
-class GiveController < ApplicationController
-end
