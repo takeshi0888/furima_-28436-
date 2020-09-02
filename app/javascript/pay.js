@@ -1,14 +1,11 @@
-window.addEventListener('load', function(){
+window.addEventListener('DOMContentLoaded', () => {
   
-  let pay = document.getElementById("item-price")
+  const pay = document.getElementById("item-price")
+  const tax = document.getElementById("add-tax-price")
+  const prof = document.getElementById("profit")
 
-  pay.addEventListener('keyup', function(){
-    let price = document.getElementById("item-price").value;
-
-    document.getElementById("add-tax-price").innerHTML = price * 0.1
-
-    document.getElementById("profit").innerHTML = price * 0.9
-      
+  pay.addEventListener('keyup', () => {
+    tax.textContent = (pay.value * 0.1)
+    prof.textContent = (pay.value * 0.9)
   })
 })
-  
