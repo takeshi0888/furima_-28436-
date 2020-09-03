@@ -12,7 +12,7 @@ class ItemsController < ApplicationController
     @item = Item.new(item_params)
     if @item.save
       redirect_to root_path
-    else 
+    else
       render action: :new
     end
   end
