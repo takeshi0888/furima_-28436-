@@ -21,6 +21,19 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
+  def edit
+    @item = Item.find(params[:id])
+  end
+
+  def update
+    @item = Item.find(params[:id])
+    if @item.update(item_params)
+      redirect_to root_path
+    else
+      render action: :edit
+    end
+  end
+
   def destroy
     item = Item.find(params[:id])
     if item.destroy
@@ -32,9 +45,6 @@ class ItemsController < ApplicationController
 
   private
 
-  # def item_id_params
-  #   params.require(:item).permit(:id)
-  # end
 
   def item_params
     params.require(:item).permit(:image, :name, :explanation, :genre_id, :status_id, :delivery_fee_id, :prefecture_id, :delivery_day_id, :price).merge(user_id: current_user.id)
