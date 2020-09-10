@@ -12,7 +12,7 @@ RSpec.describe Order, type: :model do
       end
     end
 
-    context '新規登録がうまくいくとき' do
+    context '商品購入がうまくいかないとき' do
       it 'tokenが空だと購入できない' do
         @order.token = nil
         @order.valid?
