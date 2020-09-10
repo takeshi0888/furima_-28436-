@@ -11,7 +11,7 @@ class OrderDeliveryAddress
     validates :address1
     validates :address2
   end
-  validates :phone_number, presence: true, format: { with: /\d{10,11}/, message: 'は半角数字で入力して下さい' }
+  validates :phone_number, presence: true, format: { with: /\d{10,11}/, message: 'は11桁以内の半角数字で入力して下さい' }
 
   def save
     order = Order.create(user_id: user_id, item_id: item_id)

@@ -1,8 +1,9 @@
 class OrdersController < ApplicationController
   before_action :user_sighn, only: [:index]
+  before_action :set_order, only: [:index, :create]
+
 
   def index
-    @item = Item.find(params[:item_id])
     @order = OrderDeliveryAddress.new
 
     return redirect_to root_path if @item.order.present?
@@ -11,7 +12,6 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @order = OrderDeliveryAddress.new(order_params)
     if @order.valid?
       pay_item
@@ -23,6 +23,10 @@ class OrdersController < ApplicationController
   end
 
   private
+
+  def set_order
+    @item = Item.find(params[:item_id])
+  end
 
   def user_sighn
     redirect_to new_user_session_path unless user_signed_in?

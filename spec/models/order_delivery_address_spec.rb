@@ -51,7 +51,12 @@ RSpec.describe Order, type: :model do
       it 'phone_numberは半角数字で入力しないと購入できない' do
         @order.phone_number = '全角２３４'
         @order.valid?
-        expect(@order.errors.full_messages).to include('Phone number は半角数字で入力して下さい')
+        expect(@order.errors.full_messages).to include('Phone number は11桁以内の半角数字で入力して下さい')
+      end
+      it 'phone_numberはハイフン不要で１１桁以内で入力しないと購入できない' do
+        @order.phone_number = '123456789-123'
+        @order.valid?
+        expect(@order.errors.full_messages).to include('Phone number は11桁以内の半角数字で入力して下さい')
       end
     end
   end
