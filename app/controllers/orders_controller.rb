@@ -5,10 +5,12 @@ class OrdersController < ApplicationController
 
   def index
     @order = OrderDeliveryAddress.new
-
-    return redirect_to root_path if @item.order.present?
-
-    redirect_to root_path if current_user.id == @item.user_id
+    if @item.order.present?
+    return redirect_to root_path 
+    end
+    if current_user.id == @item.user_id
+    redirect_to root_path 
+    end
   end
 
   def create

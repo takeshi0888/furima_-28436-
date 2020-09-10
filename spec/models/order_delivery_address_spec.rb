@@ -19,7 +19,7 @@ RSpec.describe Order, type: :model do
         expect(@order.errors.full_messages).to include("Token can't be blank")
       end
       it 'prefecture_idが1だと購入できない' do
-        @order.prefecture_id = 1
+        @order.prefecture_id = '1'
         @order.valid?
         expect(@order.errors.full_messages).to include('Prefecture must be other than 1')
       end
