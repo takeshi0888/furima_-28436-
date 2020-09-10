@@ -6,7 +6,7 @@ class Item < ApplicationRecord
   belongs_to_active_hash :prefecture
   belongs_to_active_hash :delivery_day
   belongs_to_active_hash :delivery_fee
-  # validates :image, :name, :explanation, :genre, :status, :delivery_fee, :prefecture, :delivery_day, :price presence: true
+
   validates :genre_id, :status_id, :delivery_fee_id, :prefecture_id, :delivery_day_id, numericality: { other_than: 1 }
 
   belongs_to :user

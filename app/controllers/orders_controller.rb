@@ -1,15 +1,13 @@
 class OrdersController < ApplicationController
+  before_action :user_sighn, only: [:index]
 
   def index
     @item = Item.find(params[:item_id])
     @order = OrderDeliveryAddress.new
 
-    if @item.order.present?
-      return redirect_to root_path
-    end
-    if current_user.id == @item.user_id
-      redirect_to root_path
-    end
+    return redirect_to root_path if @item.order.present?
+
+    redirect_to root_path if current_user.id == @item.user_id
   end
 
   def create
@@ -18,7 +16,7 @@ class OrdersController < ApplicationController
     if @order.valid?
       pay_item
       @order.save
-      return redirect_to root_path
+      redirect_to root_path
     else
       render 'index'
     end
@@ -26,17 +24,20 @@ class OrdersController < ApplicationController
 
   private
 
+  def user_sighn
+    redirect_to new_user_session_path unless user_signed_in?
+  end
+
   def order_params
     params.permit(:token, :item_id, :postal_code, :prefecture_id, :address1, :address2, :building_name, :phone_number).merge(user_id: current_user.id)
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]  # PAY.JPテスト秘密鍵
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
-      amount: @item.price,  # 商品の値段
-      card: order_params[:token],    # カードトークン
-      currency:'jpy'                 # 通貨の種類(日本円)
+      amount: @item.price,
+      card: order_params[:token],
+      currency: 'jpy'
     )
   end
-
 end
