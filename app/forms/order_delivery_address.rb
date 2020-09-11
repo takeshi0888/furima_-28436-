@@ -7,7 +7,7 @@ class OrderDeliveryAddress
   validates :prefecture_id, numericality: { other_than: 1 }
   validates :postal_code, presence: true, format: { with: /\A\d{3}[-]\d{4}\z/, message: 'はハイフンを含めて７桁で入力して下さい' }
 
-  with_options presence: true, format: { with: /\A[ぁ-んァ-ン一-龥]/, message: 'は全角ひらがな、カタカナ、漢字で入力して下さい' } do
+  with_options presence: true do
     validates :address1
     validates :address2
   end
