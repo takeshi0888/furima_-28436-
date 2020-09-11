@@ -7,7 +7,8 @@ RSpec.describe Order, type: :model do
 
   describe '商品購入機能' do
     context '商品購入がうまくいくとき' do
-      it 'token,address1,address2が入力されて、prefecture_idが１以外が入力されて、postal_codeがハイフンを含めて７桁で入力してphone_numberが半角数字で入力されていると購入できる' do
+      it 'token,address1,address2が入力されて、prefecture_idが１以外が入力されて、postal_codeがハイフンを含めて７桁で入力してphone_numberが半角数字１１桁以内で入力されていて、building_nameが空でも購入できる' do
+        @order.building_name = ''
         expect(@order).to be_valid
       end
     end
