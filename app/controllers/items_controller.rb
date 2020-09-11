@@ -4,6 +4,7 @@ class ItemsController < ApplicationController
 
   def index
     @items = Item.all
+    @order = Order.select('item_id')
   end
 
   def new
@@ -20,6 +21,7 @@ class ItemsController < ApplicationController
   end
 
   def show
+    @order = Order.select('item_id')
   end
 
   def edit
@@ -36,7 +38,7 @@ class ItemsController < ApplicationController
   def destroy
     item = Item.find(params[:id])
     if item.destroy
-    redirect_to root_path
+      redirect_to root_path
     else
       render :show
     end
